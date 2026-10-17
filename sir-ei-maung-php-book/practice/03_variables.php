@@ -1,56 +1,102 @@
+
 <?php
-    $var;
-    var_dump($var); // Warning: Undefined Variable  // NULL
 
-    $var = 123;
-    var_dump($var); // int(123)
+// ========================================
+// 1. Variables and var_dump()
+// ========================================
 
-    $var = "abc";
-    var_dump ($var); // String(3) "abc"
+// Undefined variable
+var_dump($var);
+// Warning: Undefined variable $var
+// Output: NULL
 
-//******************************//
+// Integer
+$var = 123;
+var_dump($var);
+// Output: int(123)
+
+// String
+$var = "abc";
+var_dump($var);
+// Output: string(3) "abc"
+
+
+// ========================================
+// 2. Global Variable Scope
+// ========================================
 
 $name = "Bob";
-function hello(){
-    global $name;  // php မှာက global variable ကို function ထဲမှာသုံးချင်ရင် global keyword ကိုသုံးရမယ်
+
+function hello()
+{
+    // Function ထဲမှာ global variable ကို
+    // အသုံးပြုချင်ရင် global keyword သုံးရပါတယ်။
+    global $name;
+
     echo "Hello $name\n";
 }
+
 hello();
-
-//******************************//
-
+// Output: Hello Bob
 
 
-//******************************//
+// ========================================
+// 3. Function and Block Scope
+// ========================================
 
-function hi(){
-    if (true){
+function hi()
+{
+    if (true) {
         $name1 = "Alice";
     }
-    echo $name1."\n";
+
+    // PHP မှာ if block က separate scope မဖန်တီးပါ။
+    // ဒါကြောင့် $name1 ကို ဒီနေရာမှာ သုံးနိုင်ပါတယ်။
+    echo $name1 . "\n";
 }
+
 hi();
-
-//******************************//
-
-
-//******************************//
-
-    echo isset($name)."\n"; 
-// Variable တွေရှိမရှိ စစ်ချင်ရင် isset() ကိုအသုံးပြုပြီး စစ်နိုင်ပါတယ်။ ရှိရင် true အနေနဲ့ 1 ကိုပြန်ပေးပြီး မရှိရင်တော့ false အနေနဲ့ Empty ကို ပြန်ပေးပါတယ်။
-//******************************//
+// Output: Alice
 
 
+// ========================================
+// 4. Checking Variables with isset()
+// ========================================
 
-//******************************//
+// isset() က variable ရှိပြီး NULL မဟုတ်တာကို စစ်ပါတယ်။
+// true ဖြစ်ရင် echo က 1 ပြပြီး
+// false ဖြစ်ရင် ဘာမှမပြပါ။
 
-// Constant ပေတွကို define() Function သုံးပြီး ကြေညာပေးရပါတယ်။ $ မလိုပါ။
-    define("PI", 3.14159);
-    echo PI."\n";
-    define("MIN", 1);
-    define("MAX", 10);
-    echo MAX."\n"; // 10
-    //MAX = 20; // Error: Cannot re-assign constant MAX
-    $MAX = 20; // this will work because $MAX is a variable, not a constant
+echo isset($name) . "\n";
+// Output: 1
 
-//******************************//
+echo isset($unknown) . "\n";
+// Output: (empty line)
+
+
+// ========================================
+// 5. Constants with define()
+// ========================================
+
+// Constant တွေကို define() နဲ့ ကြေညာနိုင်ပါတယ်။
+// Constant name တွေမှာ $ မလိုအပ်ပါ။
+
+define("PI", 3.14159);
+define("MIN", 1);
+define("MAX", 10);
+
+echo PI . "\n";
+// Output: 3.14159
+
+echo MAX . "\n";
+// Output: 10
+
+// Constants cannot be reassigned.
+// MAX = 20; // Error
+
+// This works because $MAX is a variable,
+// not the constant MAX.
+$MAX = 20;
+
+echo $MAX . "\n";
+// Output: 20
